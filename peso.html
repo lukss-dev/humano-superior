@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senda do Herói - Peso</title>
+    <link rel="stylesheet" href="peso.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container-peso">
+        <header>
+            <a href="../index.html" class="voltar">⬅ Voltar</a>
+            <h1>metas</h1>
+        </header>
+
+        <div class="cards-metas">
+            <div class="card lateral">
+                <span>Meta Mensal</span>
+                <h2 id="meta-mes">-- kg</h2>
+            </div>
+            
+            <div class="card destaque centro">
+                <span>Meta Semanal</span>
+                <h2 id="meta-semana">-- kg</h2>
+                <div class="divisoria-mini"></div>
+                <div id="status-rank" class="rank-texto">Recruta</div>
+            </div>
+
+            <div class="card lateral">
+                <span>Meta Final</span>
+                <h2 id="meta-final">-- kg</h2>
+            </div>
+        </div>
+
+        <div class="area-grafico">
+            <canvas id="graficoPeso"></canvas>
+        </div>
+
+        <div class="registro-peso">
+            <div class="input-group">
+                <label>Peso de Hoje (kg)</label>
+                <input type="number" id="input-peso" step="0.1" placeholder="00.0">
+                <button onclick="registrarPeso()">Registrar</button>
+            </div>
+            <button class="config-btn" onclick="configurarMetas()">⚙️ Definir Metas</button>
+        </div>
+    </div>
+
+    <script src="peso.js"></script>
+</body>
+</html>
