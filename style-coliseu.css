@@ -1,0 +1,152 @@
+:root {
+    --preto-profundo: #0D0D0D;
+    --preto-secundario: #1A1A1A;
+    --ouro: #D4AF37;
+    --ouro-escuro: #574B24;
+    --vinho: #630D16;
+    --vinho-escuro: #291819;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, var(--preto-secundario), var(--preto-profundo));
+    color: var(--ouro);
+    font-family: 'Georgia', serif;
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+/* Container principal */
+.coliseu-container {
+    width: 90%;
+    max-width: 550px;
+    text-align: center;
+}
+
+/* Título */
+.titulo-arena {
+    color: var(--ouro);
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(212,175,55,0.4);
+}
+
+/* Botão abrir editor */
+#abrir-editor {
+    background: transparent;
+    border: 1px solid var(--ouro-escuro);
+    color: var(--ouro);
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#abrir-editor:hover {
+    border-color: var(--ouro);
+    background: rgba(212,175,55,0.1);
+}
+
+/* Painel editor */
+.painel-editor {
+    background: var(--vinho-escuro);
+    padding: 25px;
+    border: 1px solid var(--ouro-escuro);
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+}
+
+.painel-editor input,
+.painel-editor textarea {
+    background: var(--preto-secundario);
+    border: 1px solid var(--ouro-escuro);
+    color: var(--ouro);
+    padding: 10px;
+}
+
+.painel-editor input:focus,
+.painel-editor textarea:focus {
+    outline: none;
+    border-color: var(--ouro);
+}
+
+/* Classe utilitária */
+.hidden {
+    display: none !important;
+}
+
+/* Card de desafio */
+.desafio-card {
+    background: var(--preto-secundario);
+    border: 2px solid var(--ouro-escuro);
+    padding: 35px 25px;
+    position: relative;
+    box-shadow: 
+        0 15px 40px rgba(0,0,0,0.7),
+        inset 0 0 20px rgba(212,175,55,0.05);
+}
+
+/* Badge de tempo */
+.badge-tempo {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--vinho);
+    color: var(--ouro);
+    padding: 6px 14px;
+    font-size: 0.7rem;
+    border: 1px solid var(--ouro);
+    letter-spacing: 1px;
+}
+
+/* Recompensa */
+.recompensa {
+    border-left: 4px solid var(--ouro);
+    background: rgba(212,175,55,0.05);
+    margin: 25px 0;
+    padding: 12px;
+}
+
+/* Botões principais */
+.btn-entrar,
+.btn-vitoria {
+    width: 100%;
+    padding: 15px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 2px;
+}
+
+.btn-entrar {
+    background: var(--ouro);
+    color: var(--preto-profundo);
+}
+
+.btn-entrar:hover {
+    background: #e6c65a;
+}
+
+.btn-vitoria {
+    background: var(--vinho);
+    color: var(--ouro);
+    border: 1px solid var(--ouro);
+}
+
+.btn-vitoria:hover {
+    background: #7a111c;
+}
+
+/* Histórico */
+.historico {
+    margin-top: 35px;
+    text-align: left;
+    opacity: 0.8;
+    font-size: 0.9rem;
+}

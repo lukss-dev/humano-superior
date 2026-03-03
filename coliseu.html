@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senda do Herói - Coliseu</title>
+    <link rel="stylesheet" href="style-coliseu.css">
+</head>
+<body>
+
+    <div class="coliseu-container">
+        <header>
+            <h1 class="titulo-arena"> Coliseu das Provações</h1>
+            <button id="abrir-editor" onclick="toggleEditor()">🛠️ Editar Provação</button>
+        </header>
+
+        <div id="editor-missao" class="painel-editor hidden">
+            <input type="text" id="novo-nome" placeholder="Nome da Missão (ex: Ira de Ares)">
+            <textarea id="nova-desc" placeholder="Descrição do desafio..."></textarea>
+            <input type="number" id="novo-xp" placeholder="Quantidade de XP">
+            <button onclick="salvarMissao()">Definir Provação</button>
+        </div>
+
+        <div class="desafio-card">
+            <div class="badge-tempo">Expira em: <span id="timer">23:59:59</span></div>
+            <h2 id="nome-missao">Aguardando Mestre...</h2>
+            <p id="desc-missao">Clique no martelo acima para criar seu primeiro desafio.</p>
+            
+            <div class="recompensa">
+                <span>Recompensa:</span>
+                <strong id="xp-valor">0 XP</strong>
+            </div>
+
+            <div class="controles-arena">
+                <button class="btn-entrar" id="btn-entrar" onclick="iniciarProva()">Entrar na Arena</button>
+                <button class="btn-vitoria hidden" id="btn-vencer" onclick="reclamarGloria()">Reclamar Glória</button>
+            </div>
+        </div>
+
+        <div class="historico">
+            <h3>📜 Mural das Vitórias</h3>
+            <ul id="lista-vitorias"></ul>
+        </div>
+    </div>
+
+    <script src="script-coliseu.js"></script>
+</body>
+</html>

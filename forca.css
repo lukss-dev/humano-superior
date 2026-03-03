@@ -1,0 +1,113 @@
+:root {
+    --ouro: #d4af37;
+    --vinho: #630d16;
+    --fundo: #0d0d0d;
+    --marmore: #e0e0e0;
+    --fogo: #ff4500; /* Cor do Modo Sério */
+}
+
+/* Transição suave para a mudança de modo */
+body {
+    background-color: var(--fundo);
+    font-family: 'Georgia', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--marmore);
+    transition: all 0.5s ease;
+}
+
+.canvas {
+    width: 95%;
+    max-width: 450px;
+    background: #1a1a1a;
+    border: 2px solid var(--ouro);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    transition: all 0.5s ease;
+}
+
+/* --- ESTILO MODO TITÃ (SÉRIO) --- */
+body.modo-tita {
+    background-color: #1a0505;
+}
+
+body.modo-tita .canvas {
+    border-color: var(--fogo);
+    box-shadow: 0 0 30px rgba(255, 69, 0, 0.4);
+}
+
+body.modo-tita h1, body.modo-tita .selo {
+    color: var(--fogo);
+}
+
+body.modo-tita .selo {
+    border-right: 1px solid var(--fogo);
+}
+
+body.modo-tita #btn-modo-serio {
+    background: var(--fogo);
+    color: white;
+    box-shadow: 0 0 15px var(--fogo);
+}
+
+/* --- ELEMENTOS GERAIS --- */
+.modo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#btn-modo-serio {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--ouro);
+    color: var(--ouro);
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.dia-row {
+    display: flex;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #333;
+}
+
+.selo {
+    background: var(--vinho);
+    color: var(--ouro);
+    padding: 12px;
+    min-width: 80px;
+    text-align: center;
+    font-weight: bold;
+    border-right: 1px solid var(--ouro);
+}
+
+.treino-select {
+    flex: 1;
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 10px;
+    outline: none;
+}
+
+#btn-salvar-forca {
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    background: var(--ouro);
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}

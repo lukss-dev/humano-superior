@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+:root {
+  --preto-profundo: #0D0D0D;
+  --preto-secundario: #1A1A1A;
+  --ouro: #D4AF37;
+  --ouro-escuro: #574B24;
+  --vinho: #630D16;
+  --vinho-escuro: #291819;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(180deg, var(--preto-profundo), var(--vinho-escuro));
+  font-family: 'Cinzel', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--ouro);
+}
+
+.container {
+  text-align: center;
+  width: 90%;
+  max-width: 900px;
+}
+
+.titulo {
+  font-size: 48px;
+  color: var(--ouro);
+  margin-bottom: 40px;
+  letter-spacing: 6px;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.painel {
+  background: var(--preto-secundario);
+  padding: 50px;
+  border-radius: 14px;
+  border: 2px solid var(--ouro-escuro);
+  box-shadow: 
+    0 0 30px rgba(0,0,0,0.8),
+    0 0 25px rgba(212, 175, 55, 0.1) inset;
+}
+
+.painel h2 {
+  margin-bottom: 35px;
+  color: var(--ouro);
+  letter-spacing: 4px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  padding: 25px;
+  text-decoration: none;
+  color: var(--ouro);
+  border: 2px solid var(--ouro-escuro);
+  border-radius: 10px;
+  background: var(--vinho-escuro);
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  background: var(--vinho);
+  border-color: var(--ouro);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+  top: -10%;
+  left: -10%;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}

@@ -1,0 +1,100 @@
+:root {
+    --ouro: #d4af37;
+    --azul-claro: #00d4ff;
+    --azul-escuro: #005f73;
+    --fundo: #0a0a0a;
+    --marmore: #e0e0e0;
+}
+
+body {
+    background-color: var(--fundo);
+    background: radial-gradient(circle, #00121a 0%, #050505 100%);
+    font-family: 'Georgia', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--marmore);
+}
+
+.canvas {
+    width: 90%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--ouro);
+    border-radius: 30px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+h1 { color: var(--ouro); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+
+/* Design do Cálice/Reservatório */
+.calice-exterior {
+    width: 120px;
+    height: 250px;
+    border: 4px solid var(--ouro);
+    margin: 30px auto;
+    border-radius: 0 0 60px 60px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.agua-interior {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%; /* Controlado pelo JS */
+    background: linear-gradient(to top, var(--azul-escuro), var(--azul-claro));
+    transition: height 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    box-shadow: 0 0 20px var(--azul-claro);
+}
+
+.reflexo {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 20%;
+    height: 80%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.controles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-agua {
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--ouro);
+    color: var(--ouro);
+    padding: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-agua:hover {
+    background: var(--ouro);
+    color: black;
+    box-shadow: 0 0 15px var(--ouro);
+}
+
+#btn-reset {
+    margin-top: 30px;
+    background: transparent;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.8rem;
+}
