@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Agenda de Corridas</title>
+    <link rel="stylesheet" href="corridas.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>🏃‍♂️ Meu Diário de Corrida</h1>
+
+        <div class="records-panel">
+            <div class="record-card"><span>👑<br>5KM</span><strong id="best-5k">-</strong></div>
+            <div class="record-card"><span>👑<br>10KM</span><strong id="best-10k">-</strong></div>
+            <div class="record-card"><span>👑<br>21KM</span><strong id="best-21k">-</strong></div>
+            <div class="record-card"><span>👑<br>42KM</span><strong id="best-42k">-</strong></div>
+        </div>
+
+        <form id="race-form">
+            <div class="input-group">
+                <input type="text" id="race-name" placeholder="Nome da Corrida/Treino" required>
+                <input type="date" id="race-date" required>
+                <input type="number" id="race-km" step="0.1" placeholder="Distância (km)" required>
+                <input type="text" id="race-pace" placeholder="Pace (min/km - ex: 05:20)" required>
+                <textarea id="race-notes" placeholder="Notas (como se sentiu?)"></textarea>
+                <button type="submit">Adicionar Corrida</button>
+            </div>
+        </form>
+
+        <div class="history">
+            <h2>Histórico de Atividades</h2>
+            <table id="race-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Nome</th>
+                        <th>Distância</th>
+                        <th>Pace</th>
+                        <th>Tempo Total</th>
+                        <th>Notas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="corridas.js"></script>
+</body>
+</html>
