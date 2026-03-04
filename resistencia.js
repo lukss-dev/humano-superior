@@ -1,114 +1,161 @@
-// 1. Configurações de Ranks e Missões
-const ranks = {
-    "F": 10, "E": 25, "D": 50, "C": 100, 
-    "B": 250, "A": 500, "S": 1000, "SS": 2500, "SSS": 5000
+const ranks = { 
+    "F": 10, "E": 20, "D": 35, "C": 55, "B": 80, 
+    "A": 120, "S": 200, "SS": 350, "SSS": 600 
 };
 
 const missoesPorClima = {
     calor: [
-        { rank: "F", desc: "Lavar louça no vapor da água quente" },
-        { rank: "E", desc: "Caminhada de 20min sob sol" },
-        { rank: "D", desc: "Treino funcional sem ventilador" },
-        { rank: "C", desc: "Banho progressivamente quente" },
-        { rank: "B", desc: "Corrida leve ao meio-dia" },
-        { rank: "A", desc: "Sessão de 15min de Sauna" },
-        { rank: "S", desc: "Treino de força em alta temperatura" },
-        { rank: "SS", desc: "Marcha com carga no deserto/calor extremo" },
-        { rank: "SSS", desc: "Provação de Hefesto: Exposição Limite" }
+        { rank: "F", desc: "Toque do Verão: 10min Caminhada + Hidratação" },
+        { rank: "E", desc: "Pele Solar: 15min Corrida Leve + 10min Exposição" },
+        { rank: "D", desc: "Fornalha Interior: 20min Corrida + Controle de Suor" },
+        { rank: "C", desc: "Corpo Adaptado: Intervalado Leve + 20min Sol" },
+        { rank: "B", desc: "Resistência do Deserto: 30min Calor + Hidratação Fracionada" },
+        { rank: "A", desc: "Sangue Quente: Longão Moderado + Recuperação Ativa" },
+        { rank: "S", desc: "Guerreiro do Sol: Performance com Frequência Cardíaca Controlada" },
+        { rank: "SS", desc: "Núcleo de Magma: Adaptação Cardiovascular Clara" },
+        { rank: "SSS", desc: "Avatar Elementar: Domínio e Execução sob Calor Extremo" }
     ],
     frio: [
-        { rank: "F", desc: "Lavar o rosto com água gelada ao acordar" },
-        { rank: "E", desc: "Banho: Últimos 30s de água fria" },
-        { rank: "D", desc: "Ficar 5min sem casaco no vento frio" },
-        { rank: "C", desc: "Imersão de pés em balde de gelo" },
-        { rank: "B", desc: "Banho totalmente gelado (3min)" },
-        { rank: "A", desc: "Treino ao ar livre (noite fria/sereno)" },
-        { rank: "S", desc: "Imersão de corpo inteiro no gelo (5min)" },
-        { rank: "SS", desc: "Natação em águas abertas/frias" },
-        { rank: "SSS", desc: "Pele de Titã: Resistência Criogênica" }
+        { rank: "F", desc: "O Despertar do Norte: 15s Banho Frio + Respiração" },
+        { rank: "E", desc: "Pele de Inverno: 45s Banho Frio + Rosto na Água Gelo" },
+        { rank: "D", desc: "Corpo que Gera Fogo: 1min Banho Frio + 20min Corrida" },
+        { rank: "C", desc: "Disciplina Ártica: 2min Banho Frio + Pés no Gelo" },
+        { rank: "B", desc: "Sangue Espesso: 4min Banho Frio + 30min Corrida" },
+        { rank: "A", desc: "Guardião do Inverno: 5min Banho Frio + Imersão Pernas" },
+        { rank: "S", desc: "Predador Polar: 10min Imersão Parcial + Respiração Estável" },
+        { rank: "SS", desc: "Coração do Gelo: 12min Imersão Progressiva + Performance" },
+        { rank: "SSS", desc: "Senhor do Inverno: Controle Total e Calma Absoluta no Gelo" }
     ]
 };
-
-// 2. Variáveis de Estado (Iniciam o jogo)
-let xpAtual = 0;
-let xpNecessario = 100;
-let nivel = 1;
+// --- CARREGAMENTO DE DADOS ---
+let xpAtual = parseInt(localStorage.getItem('resistencia_xp')) || 0;
+let xpNecessario = parseInt(localStorage.getItem('resistencia_xp_next')) || 100;
+let nivel = parseInt(localStorage.getItem('resistencia_nivel')) || 1;
 let modoAtual = "calor";
 
-// 3. Função para Renderizar as Missões na Tela
+// --- FUNÇÕES DE PERSISTÊNCIA ---
+function salvarProgresso() {
+    localStorage.setItem('resistencia_xp', xpAtual);
+    localStorage.setItem('resistencia_xp_next', xpNecessario);
+    localStorage.setItem('resistencia_nivel', nivel);
+}
+
+function atualizarUI() {
+    const lvlDisplay = document.getElementById('lvl-display');
+    const xpTexto = document.getElementById('xp-texto');
+    const barraXp = document.getElementById('barra-xp');
+
+    if (lvlDisplay) lvlDisplay.innerText = nivel;
+    if (xpTexto) xpTexto.innerText = `${xpAtual} / ${xpNecessario} XP`;
+    if (barraXp) {
+        let progresso = (xpAtual / xpNecessario) * 100;
+        barraXp.style.width = progresso + "%";
+    }
+}
+
+// --- LÓGICA DE PARTÍCULAS ---
+function gerarEfeitos() {
+    const container = document.getElementById('particulas-container');
+    if (!container) return;
+    
+    container.innerHTML = "";
+    const qtd = 60; 
+
+    for (let i = 0; i < qtd; i++) {
+        const p = document.createElement('div');
+        p.className = "particula";
+        
+        const tamanho = Math.random() * 3 + 1;
+        p.style.width = tamanho + "px";
+        p.style.height = tamanho + "px";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.position = "absolute";
+        
+        if (modoAtual === "calor") {
+            p.style.background = "linear-gradient(to top, #ffae00, #fff)";
+            p.style.boxShadow = "0 0 10px #ff4500, 0 0 20px #ff8c00";
+            p.style.borderRadius = "1px";
+            p.style.bottom = "-10px";
+
+            p.animate([
+                { transform: 'translateY(0) scale(1) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(-110vh) translateX(${Math.random() * 100 - 50}px) rotate(720deg) scale(0)`, opacity: 0 }
+            ], { 
+                duration: Math.random() * 1500 + 1000, 
+                iterations: Infinity,
+                delay: Math.random() * 2000
+            });
+        } else {
+            p.style.background = "#fff";
+            p.style.boxShadow = "0 0 8px #00d4ff";
+            p.style.borderRadius = "50%";
+            p.style.top = "-10px";
+
+            p.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 0.8 },
+                { transform: `translateY(110vh) rotate(360deg) translateX(${Math.random() * 60 - 30}px)`, opacity: 0 }
+            ], { 
+                duration: Math.random() * 4000 + 3000, 
+                iterations: Infinity 
+            });
+        }
+        container.appendChild(p);
+    }
+}
+
+// --- LÓGICA DE MISSÕES ---
 function carregarMissoes() {
     const lista = document.getElementById('lista-missoes');
     if (!lista) return;
-
     lista.innerHTML = "";
+    
     missoesPorClima[modoAtual].forEach(m => {
         const div = document.createElement('div');
         div.className = "missao-card";
         div.onclick = () => completarMissao(m);
         div.innerHTML = `
-            <div>
-                <span class="rank-badge">${m.rank}</span> 
-                <span style="margin-left:8px">${m.desc}</span>
-            </div>
+            <div><span class="rank-badge">${m.rank}</span> <span style="margin-left:8px">${m.desc}</span></div>
             <span class="xp-award">+${ranks[m.rank]} XP</span>
         `;
         lista.appendChild(div);
     });
 }
 
-// 4. Função para Completar Missão e Ganhar XP
 function completarMissao(missao) {
-    const xpGanho = ranks[missao.rank];
-    if(confirm(`Deseja iniciar o contrato [${missao.desc}]?\nRecompensa: ${xpGanho} XP`)) {
-        xpAtual += xpGanho;
+    if(confirm(`Iniciar contrato: ${missao.desc}?`)) {
+        xpAtual += ranks[missao.rank];
         
-        // Lógica de Level Up
         while (xpAtual >= xpNecessario) {
             xpAtual -= xpNecessario;
             nivel++;
             xpNecessario = Math.floor(xpNecessario * 1.5);
             alert(`⭐ ADAPTAÇÃO EVOLUÍDA: Nível ${nivel}`);
         }
-        atualizarUI();
+        
+        salvarProgresso(); // Grava os dados no localStorage
+        atualizarUI();     // Atualiza a tela imediatamente
     }
 }
 
-// 5. Função para Atualizar a Interface (Barra e Textos)
-function atualizarUI() {
-    const lvlDisp = document.getElementById('lvl-display');
-    const xpTxt = document.getElementById('xp-texto');
-    const barra = document.getElementById('barra-xp');
-
-    if (lvlDisp) lvlDisp.innerText = nivel;
-    if (xpTxt) xpTxt.innerText = `${xpAtual} / ${xpNecessario} XP`;
-    if (barra) {
-        const porcentagem = (xpAtual / xpNecessario) * 100;
-        barra.style.width = porcentagem + "%";
-    }
-}
-
-// 6. Evento de Transição Suave (O "Portal Elemental")
+// --- EVENTOS ---
 document.getElementById('btn-alternar').addEventListener('click', () => {
-    document.body.classList.add('trocando'); // Ativa desfoque e escurecimento no CSS
-
+    document.body.classList.add('trocando');
     setTimeout(() => {
-        // Troca o modo e os textos no auge do efeito visual
         modoAtual = (modoAtual === "calor") ? "frio" : "calor";
         document.body.className = `modo-${modoAtual}`;
-        
         const titulo = document.getElementById('titulo-reino');
         if (titulo) {
-            titulo.innerText = (modoAtual === "calor") ? "🔥 Forja de Hefesto" : "❄️ Glaciar de Bóreas";
+            titulo.innerText = modoAtual === "calor" ? "🔥 Forja de Hefesto" : "❄️ Glaciar de Bóreas";
         }
-        
+        gerarEfeitos();
         carregarMissoes();
-    }, 600); 
-
-    setTimeout(() => {
-        document.body.classList.remove('trocando'); // Remove o efeito e volta a nitidez
-    }, 1000);
+    }, 600);
+    setTimeout(() => document.body.classList.remove('trocando'), 1000);
 });
 
-// 7. Inicialização ao carregar a página
-carregarMissoes();
-atualizarUI();
+// --- INICIALIZAÇÃO ---
+window.onload = () => {
+    gerarEfeitos();
+    carregarMissoes();
+    atualizarUI();
+};
