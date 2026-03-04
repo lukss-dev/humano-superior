@@ -1,83 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senda do Herói - Organizador</title>
     <link rel="stylesheet" href="corrida.css">
 </head>
-
 <body>
 
     <div class="canvas">
         <header>
-            <h1>Domínio da Velocidade</h1>
-            <p>Escreva sua própria lenda</p>
+            <h1>🏛️ Senda do Herói</h1>
+            <p>Trace seu destino nas pistas, semideus.</p>
         </header>
 
-        <main id="cronograma"></main>
-        <button id="btn-salvar">Gravar no Oráculo</button>
-    </div>
+        <main id="cronograma">
+            </main>
 
-    <div class="container">
-        <h1>Arquivo de Ascensão</h1>
-
-        <div class="records-panel">
-            <div class="record-card">
-                <span>👑<br>5KM</span>
-                <strong id="best-5k">-</strong>
-            </div>
-
-            <div class="record-card">
-                <span>👑<br>10KM</span>
-                <strong id="best-10k">-</strong>
-            </div>
-
-            <div class="record-card">
-                <span>👑<br>21KM</span>
-                <strong id="best-21k">-</strong>
-            </div>
-
-            <div class="record-card">
-                <span>👑<br>42KM</span>
-                <strong id="best-42k">-</strong>
-            </div>
+        <div class="acoes-botoes">
+            <button id="btn-salvar">Gravar no Oráculo</button>
+            <a href="coridas.html" class="btn-secundario">Ver Histórico de Corridas</a>
         </div>
-
-        <form id="race-form">
-            <div class="input-group">
-                <input type="text" id="race-name" placeholder="Nome da Corrida/Treino" required>
-                <input type="date" id="race-date" required>
-                <input type="number" id="race-km" step="0.1" placeholder="Distância (km)" required>
-                <input type="text" id="race-pace" pattern="[0-9]{2}:[0-9]{2}" placeholder="05:20" required>
-                <textarea id="race-notes" placeholder="Notas (como se sentiu?)"></textarea>
-                <button type="submit">Adicionar Corrida</button>
-            </div>
-        </form>
-
-        <div class="history">
-            <h2>Histórico de Atividades</h2>
-
-            <table id="race-table">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Nome</th>
-                        <th>Distância</th>
-                        <th>Pace</th>
-                        <th>Tempo Total</th>
-                        <th>Notas</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- SCRIPT SEMPRE NO FINAL -->
     <script src="corrida.js"></script>
-
 </body>
-
 </html>
