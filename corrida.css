@@ -97,7 +97,6 @@ form input, form textarea {
 
 form input:focus, form textarea:focus {
     border-color: var(--ouro);
-    
 }
 
 form textarea {
@@ -183,4 +182,64 @@ tr:hover {
     border: none;
     padding: 10px;
     outline: none;
+}
+
+/* Container para organizar os botões lado a lado ou um sobre o outro */
+.acoes-botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* Botão Principal (Gravar no Oráculo) */
+#btn-salvar {
+    width: 100%;
+    padding: 18px;
+    background: var(--ouro);
+    color: #000;
+    border: 2px solid var(--ouro);
+    border-radius: 8px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+#btn-salvar:hover {
+    background: #fff;
+    border-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px var(--ouro);
+}
+
+/* Botão Secundário (Link para Corridas) */
+.btn-secundario {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px;
+    background: transparent;
+    color: var(--ouro);
+    border: 1px solid var(--vinho);
+    border-radius: 8px;
+    font-family: 'Georgia', serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-secundario:hover {
+    background: var(--vinho);
+    color: #fff;
+    border-color: var(--ouro);
+}
+
+/* Efeito de clique (Active) */
+#btn-salvar:active, .btn-secundario:active {
+    transform: translateY(1px);
 }
