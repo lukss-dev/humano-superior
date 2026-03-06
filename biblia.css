@@ -1,0 +1,192 @@
+:root {
+    /* Cores do Modo Heroico */
+    --primary: #d4af37; /* Ouro */
+    --secondary: rgba(255, 255, 255, 0.05);
+    --accent: #27ae60; /* Verde de progresso */
+    --text: #e0e0e0;
+    --bg-dark: #050505;
+    --frio-glow: rgba(0, 212, 255, 0.3);
+    --calor-glow: rgba(255, 69, 0, 0.3);
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+body {
+    font-family: 'Cinzel', 'Georgia', serif; /* Fonte mais épica */
+    /* Fundo gradiente profundo estilo Caminho do Gelo */
+    background-color: #000;
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    /* Efeito Glassmorphism (Vidro) */
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow), 0 0 20px var(--frio-glow);
+    transition: all 0.5s ease;
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    margin-bottom: 20px;
+}
+
+/* Navegação Estilizada (Estilo RPG) */
+.nav-links {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    color: #aaa;
+    border-bottom: 1px solid var(--primary);
+}
+
+.nav-links span {
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links span:hover {
+    color: white;
+    text-shadow: 0 0 10px var(--primary);
+    text-decoration: none;
+}
+
+/* Grid de Itens */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Card Individual (Estilo Moeda ou Runas) */
+.item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.item:hover {
+    transform: translateY(-5px) scale(1.05);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Estado: Lido (Como se fosse um item de ouro ativado) */
+.item.read {
+    background: linear-gradient(145deg, #d4af37, #aa8a2e);
+    color: #000;
+    font-weight: bold;
+    border-color: #fff;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+/* Versículos */
+.grid-verses .item {
+    min-height: 50px;
+    font-weight: bold;
+}
+
+/* Barra de Progresso Heroica */
+.progress-wrapper {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: var(--primary);
+}
+
+.progress-bar-container {
+    background: #1a1a1a;
+    height: 14px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #d4af37, #f1c40f);
+    height: 100%;
+    width: 0%;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.6);
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Botão de Histórico Estilo "Contrato" */
+.btn-history {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 15px;
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.btn-history:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 25px var(--primary);
+}
+
+/* Animação */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 10px;
+    }
+    .container { padding: 20px; width: 95%; }
+}
