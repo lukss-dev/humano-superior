@@ -11,80 +11,100 @@
 
 body {
   margin: 0;
-  height: 100vh;
-  background: linear-gradient(180deg, var(--preto-profundo), var(--vinho-escuro));
+  min-height: 100vh; /* Mudado para min-height para evitar corte em telas pequenas */
+  background: radial-gradient(circle at center, var(--vinho-escuro), var(--preto-profundo));
   font-family: 'Cinzel', serif;
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--ouro);
+  padding: 20px; /* Respiro para não colar nas bordas do celular */
+  box-sizing: border-box;
 }
 
 .container {
   text-align: center;
-  width: 90%;
+  width: 100%;
   max-width: 900px;
 }
 
 .titulo {
-  font-size: 48px;
+  /* O clamp faz a fonte ser 32px no celular e 48px no PC automaticamente */
+  font-size: clamp(32px, 8vw, 48px);
   color: var(--ouro);
-  margin-bottom: 40px;
-  letter-spacing: 6px;
+  margin-bottom: 30px;
+  letter-spacing: clamp(3px, 1.5vw, 6px);
   text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  text-transform: uppercase;
 }
 
 .painel {
   background: var(--preto-secundario);
-  padding: 50px;
+  padding: clamp(20px, 5vw, 50px); /* Padding menor no celular */
   border-radius: 14px;
-  border: 2px solid var(--ouro-escuro);
+  border: 1px solid var(--ouro-escuro); /* Borda levemente mais fina para elegância */
   box-shadow: 
-    0 0 30px rgba(0,0,0,0.8),
-    0 0 25px rgba(212, 175, 55, 0.1) inset;
+    0 10px 40px rgba(0,0,0,0.9),
+    0 0 25px rgba(212, 175, 55, 0.05) inset;
 }
 
 .painel h2 {
-  margin-bottom: 35px;
+  font-size: clamp(18px, 4vw, 24px);
+  margin-bottom: 25px;
   color: var(--ouro);
-  letter-spacing: 4px;
+  letter-spacing: 3px;
+  opacity: 0.9;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
+  /* No mobile vira 2 colunas automáticas se houver espaço, senão 1 */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: clamp(10px, 3vw, 25px);
 }
 
 .card {
-  padding: 25px;
+  padding: clamp(15px, 4vw, 25px);
   text-decoration: none;
   color: var(--ouro);
-  border: 2px solid var(--ouro-escuro);
-  border-radius: 10px;
-  background: var(--vinho-escuro);
+  border: 1px solid var(--ouro-escuro);
+  border-radius: 8px;
+  background: linear-gradient(145deg, var(--vinho-escuro), #1f1213);
   font-weight: bold;
-  letter-spacing: 2px;
-  transition: 0.3s;
+  font-size: clamp(12px, 3vw, 16px);
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  cursor: pointer;
 }
 
-.card:hover {
+/* Efeito de clique no celular (feedback tátil) */
+.card:active {
+  transform: scale(0.95);
   background: var(--vinho);
   border-color: var(--ouro);
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
+
+/* Efeito Hover (principalmente PC) */
+@media (min-width: 1024px) {
+  .card:hover {
+    background: var(--vinho);
+    border-color: var(--ouro);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  }
 }
 
 .card::before {
   content: "";
   position: absolute;
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
-  top: -10%;
-  left: -10%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
   opacity: 0;
   transition: 0.4s;
 }
