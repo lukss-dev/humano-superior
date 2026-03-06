@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Progresso Bíblico</title>
+    <link rel="stylesheet" href="biblia.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📖 Minha Leitura Bíblica</h1>
+        
+        <div id="navigation" class="nav-links">
+            <span onclick="renderBooks()">Bíblia</span>
+        </div>
+        <div class="progress-wrapper">
+    <div class="progress-info">
+        <span>Progresso da Leitura</span>
+        <span id="progress-percentage">0%</span>
+    </div>
+    <div class="progress-bar-container">
+        <div id="progress-fill" class="progress-fill"></div>
+    </div>
+    <small id="progress-count">0 de 31102 versículos</small>
+</div>
+
+        <div id="main-content" class="grid-container"></div>
+        <div id="main-content" class="grid-container"></div>
+
+<button id="view-history" class="btn-history" onclick="renderHistory()">
+    📋 Ver Versículos Lidos
+</button>
+        
+    </div>
+    
+    <script src="dados.js"></script>
+    <script src="biblia.js"></script>
+</body>
+</html>
