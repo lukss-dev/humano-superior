@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+<meta charset="UTF-8">
+<title>Jejum</title>
+<link rel="stylesheet" href="jejum.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Jejum</h1>
+
+<div class="card">
+
+<h2>Configurar Jejum</h2>
+
+<label>Hora de início</label>
+<input type="time" id="horaInicio">
+
+<label>Duração (horas)</label>
+<input type="number" id="duracao">
+
+<div class="botoes">
+
+<button onclick="iniciarJejum()">Iniciar Jejum</button>
+<button onclick="pararCronometro()">Parar Cronômetro</button>
+<button onclick="pararJejum()">Encerrar Jejum</button>
+
+</div>
+
+<p id="fimJejum"></p>
+
+</div>
+
+<div class="card">
+
+<h2>Tempo Restante</h2>
+
+<div class="cronometro" id="tempoRestante">
+00:00:00
+</div>
+
+<div class="barra">
+<div id="progresso"></div>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Experiência</h2>
+
+<p class="xp">XP: <span id="xp">0</span></p>
+
+<h2>Conquistas</h2>
+
+<ul id="conquistas"></ul>
+
+<button class="historicoBtn" onclick="mostrarHistorico()">
+Ver Evolução
+</button>
+
+<div id="historico"></div>
+
+</div>
+
+</div>
+
+<script src="jejum.js"></script>
+
+</body>
+</html>
