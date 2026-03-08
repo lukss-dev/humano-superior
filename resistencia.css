@@ -5,113 +5,453 @@
     --frio: #00d4ff;
     --frio-deep: #001a2b;
     --fundo: #0a0a0a;
+    --card-bg: #1a1a1a;
+    --texto: #e0e0e0;
+    --texto-sec: #a0a0a0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Crimson Text', serif;
+    overflow: hidden;
 }
 
 body {
-    margin: 0;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Georgia', serif;
-    overflow: hidden;
-    color: #e0e0e0;
+    color: var(--texto);
     transition: background 1.5s ease;
+    flex-direction: column;
+    gap: 15px;
 }
 
-/* --- MODO CALOR (Solar) --- */
-body.modo-calor { background: radial-gradient(circle, var(--calor-deep) 0%, #050505 100%); }
-.modo-calor .canvas { 
-    border: 2px solid var(--calor); 
-    box-shadow: 0 0 30px rgba(255, 69, 0, 0.4); 
+/* ========================================
+   MODOS DE CLIMA
+   ======================================== */
+
+/* MODO CALOR */
+body.modo-calor {
+    background: radial-gradient(circle, var(--calor-deep) 0%, #050505 100%);
+}
+
+body.modo-calor .canvas {
+    border: 2px solid var(--calor);
+    box-shadow: 0 0 30px rgba(255, 69, 0, 0.4);
     animation: arQuente 4s infinite alternate;
 }
-.modo-calor #titulo-reino { color: var(--ouro); text-shadow: 0 0 15px var(--calor), 0 0 30px #ff0000; }
 
-/* --- MODO FRIO (Glacial) --- */
-body.modo-frio { background: radial-gradient(circle, var(--frio-deep) 0%, #050505 100%); }
-.modo-frio .canvas { 
-    border: 2px solid var(--frio); 
+body.modo-calor #titulo-reino {
+    color: var(--ouro);
+    text-shadow: 0 0 15px var(--calor), 0 0 30px #ff0000;
+}
+
+body.modo-calor .tab-btn.ativo,
+body.modo-calor .btn-save {
+    background: var(--calor);
+    border-color: var(--calor);
+}
+
+/* MODO FRIO */
+body.modo-frio {
+    background: radial-gradient(circle, var(--frio-deep) 0%, #050505 100%);
+}
+
+body.modo-frio .canvas {
+    border: 2px solid var(--frio);
     background: rgba(10, 20, 30, 0.85);
     backdrop-filter: blur(8px);
-    box-shadow: 0 0 40px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(255,255,255,0.05); 
-}
-.modo-frio #titulo-reino { color: #fff; text-shadow: 0 0 10px var(--frio), 2px 2px 15px rgba(0, 212, 255, 0.7); }
-
-/* --- CANVAS & BOTAO --- */
-.canvas {
-    width: 90%;
-    max-width: 480px;
-    background: rgba(15, 15, 15, 0.95);
-    border-radius: 20px;
-    padding: 35px;
-    z-index: 10;
-    transition: all 0.8s ease;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(255,255,255,0.05);
 }
 
-#btn-alternar {
-    display: block; margin: 0 auto 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--ouro);
-    color: var(--ouro);
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    transition: 0.3s;
+body.modo-frio #titulo-reino {
+    color: #fff;
+    text-shadow: 0 0 10px var(--frio), 2px 2px 15px rgba(0, 212, 255, 0.7);
 }
 
-#btn-alternar:hover { background: var(--ouro); color: #000; box-shadow: 0 0 15px var(--ouro); }
+body.modo-frio .tab-btn.ativo,
+body.modo-frio .btn-save {
+    background: var(--frio);
+    border-color: var(--frio);
+    color: #000;
+}
 
-/* --- PARTICULAS --- */
-#particulas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-.particula { position: absolute; border-radius: 50%; pointer-events: none; }
+/* ========================================
+   ANIMAÇÕES
+   ======================================== */
 
-/* --- ANIMAÇÕES --- */
 @keyframes arQuente {
     from { transform: scale(1); filter: brightness(1); }
     to { transform: scale(1.005); filter: brightness(1.1); }
 }
 
-/* (Mantenha o CSS das missões e barra de XP que você já tinha) */
-.missao-card {
-    background: rgba(255, 255, 255, 0.03);
-    border-left: 3px solid #333;
-    padding: 15px; margin-bottom: 10px;
-    border-radius: 5px;
-    display: flex; justify-content: space-between; align-items: center;
-    cursor: pointer; transition: 0.2s;
+@keyframes subirFogo {
+    0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh) translateX(var(--drift)) rotate(720deg) scale(0);
+        opacity: 0;
+    }
 }
-.missao-card:hover { background: rgba(255,255,255,0.08); border-left-color: var(--ouro); }
-.barra-fundo { background: #222; height: 10px; border-radius: 5px; margin-top: 8px; border: 1px solid #333; overflow: hidden; }
-#barra-xp { width: 0%; height: 100%; transition: width 0.5s ease-out; }
-.modo-calor #barra-xp { background: linear-gradient(90deg, #ff4500, #ff8c00); }
-.modo-frio #barra-xp { background: linear-gradient(90deg, #00d4ff, #005f73); }
-/* Estilo base das partículas */
-.particula {
-    position: absolute;
+
+@keyframes caiuGelo {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(110vh) translateX(var(--drift)) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   CANVAS
+   ======================================== */
+
+.canvas {
+    width: 90%;
+    max-width: 500px;
+    background: rgba(15, 15, 15, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    z-index: 10;
+    transition: all 0.8s ease;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+header {
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--ouro);
+    margin-bottom: 15px;
+}
+
+#titulo-reino {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6em;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.stats-hero {
+    margin-bottom: 12px;
+    font-size: 0.9em;
+    color: var(--texto-sec);
+}
+
+.stats-hero strong {
+    color: var(--ouro);
+}
+
+.barra-fundo {
+    background: #222;
+    height: 8px;
+    border-radius: 4px;
+    margin: 6px 0;
+    border: 1px solid #333;
+    overflow: hidden;
+}
+
+#barra-xp {
+    height: 100%;
+    transition: width 0.5s ease-out;
+    background: linear-gradient(90deg, var(--calor), #ff8c00);
+}
+
+body.modo-frio #barra-xp {
+    background: linear-gradient(90deg, var(--frio), #00b4d8);
+}
+
+#btn-alternar {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--ouro);
+    color: var(--ouro);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Cinzel', serif;
+}
+
+#btn-alternar:hover {
+    background: var(--ouro);
+    color: #000;
+    box-shadow: 0 0 15px var(--ouro);
+}
+
+/* ========================================
+   TABS
+   ======================================== */
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.tab-btn {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: var(--texto-sec);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.tab-btn:hover {
+    border-color: var(--ouro);
+    color: var(--ouro);
+}
+
+.tab-btn.ativo {
+    background: var(--ouro);
+    border-color: var(--ouro);
+    color: #000;
+}
+
+/* ========================================
+   CONTEÚDO TABS
+   ======================================== */
+
+.conteudo-tabs {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.conteudo-tabs::-webkit-scrollbar {
+    width: 6px;
+}
+
+.conteudo-tabs::-webkit-scrollbar-track {
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.conteudo-tabs::-webkit-scrollbar-thumb {
+    background: var(--ouro);
+    border-radius: 3px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.ativo {
+    display: block;
+}
+
+/* ========================================
+   FORMULÁRIOS
+   ======================================== */
+
+.form {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+label {
+    color: var(--texto-sec);
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.input-form {
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: var(--texto);
+    font-size: 0.9em;
+    font-family: 'Crimson Text', serif;
+    transition: all 0.2s ease;
+}
+
+.input-form:focus {
+    outline: none;
+    border-color: var(--ouro);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slider {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--frio), var(--calor));
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ouro);
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
+}
+
+.slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ouro);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
+}
+
+/* ========================================
+   BOTÕES
+   ======================================== */
+
+.btn-save {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--ouro);
+    border-radius: 4px;
+    color: var(--ouro);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85em;
+}
+
+.btn-save:hover {
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* ========================================
+   LISTAS
+   ======================================== */
+
+.lista {
+    display: grid;
+    gap: 8px;
+}
+
+.item {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--ouro);
+    padding: 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 8px;
+}
+
+.item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.item-titulo {
+    font-weight: 600;
+    color: var(--ouro);
+    margin-bottom: 4px;
+    font-size: 0.95em;
+}
+
+.item-detalhes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 6px;
+    font-size: 0.8em;
+    color: var(--texto-sec);
+}
+
+.item-detalhe strong {
+    color: var(--texto);
+}
+
+.btn-deletar {
+    background: rgba(255, 69, 0, 0.15);
+    border: 1px solid rgba(255, 69, 0, 0.5);
+    color: #ff6b35;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.75em;
+    transition: all 0.2s ease;
+}
+
+.btn-deletar:hover {
+    background: rgba(255, 69, 0, 0.3);
+}
+
+/* ========================================
+   PARTÍCULAS
+   ======================================== */
+
+#particulas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 1;
 }
 
-/* Deixa o fundo um pouco mais "quente" no modo calor */
-body.modo-calor::after {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at bottom, rgba(255, 69, 0, 0.15) 0%, transparent 70%);
+.particula {
+    position: absolute;
+    border-radius: 50%;
     pointer-events: none;
-    z-index: 0;
 }
 
+body.modo-calor .particula {
+    background: linear-gradient(to top, #ffae00, #fff);
+    box-shadow: 0 0 10px #ff4500, 0 0 20px #ff8c00;
+}
 
-/* Camada que escurece a tela na troca */
+body.modo-frio .particula {
+    background: #fff;
+    box-shadow: 0 0 8px #00d4ff;
+}
+
+/* ========================================
+   EFEITOS TRANSIÇÃO
+   ======================================== */
+
 #camada-efeito {
     position: fixed;
-    top: 0; left: 0; 
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: #000;
     opacity: 0;
     z-index: 100;
@@ -119,16 +459,62 @@ body.modo-calor::after {
     transition: opacity 0.6s ease;
 }
 
-/* Estado durante a transição */
-body.trocando #camada-efeito { 
-    opacity: 0.8; 
+body.trocando #camada-efeito {
+    opacity: 0.8;
 }
 
-body.trocando #painel-principal { 
-    filter: blur(15px); 
-    transform: scale(0.95); 
+body.trocando #painel-principal {
+    filter: blur(15px);
+    transform: scale(0.95);
 }
 
 #painel-principal {
     transition: filter 0.8s ease, transform 0.8s ease;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer {
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.btn-footer {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--ouro);
+    border-radius: 4px;
+    color: var(--ouro);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: 'Cinzel', serif;
+}
+
+.btn-footer:hover {
+    background: var(--ouro);
+    color: #000;
+    box-shadow: 0 0 15px var(--ouro);
+}
+
+/* ========================================
+   RESPONSIVO
+   ======================================== */
+
+@media (max-width: 600px) {
+    .canvas {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    #titulo-reino {
+        font-size: 1.3em;
+    }
+
+    .tabs {
+        grid-template-columns: 1fr;
+    }
 }
