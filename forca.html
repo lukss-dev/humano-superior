@@ -3,25 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senda do Herói - Força</title>
+    <title>Templo da Força</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="forca.css">
 </head>
 <body id="body-corpo">
+    <div class="fundo-stars"></div>
 
-    <div class="canvas">
-        <header>
-            <h1 id="titulo-pagina">Templo do Ferro</h1>
-            <p id="subtitulo">Forje sua melhor versão.</p>
-            
-            <div class="modo-container">
-                <button id="btn-modo-serio">Ativar Modo Fúria 🔥</button>
+    <div class="container">
+        <!-- HEADER SIMPLES -->
+        <header class="header">
+            <h1>⚔️ Templo da Força</h1>
+            <div class="stats-header">
+                <div class="stat"><span id="nivel">Nível 1</span></div>
+                <div class="stat"><span id="poder">Poder 0</span></div>
             </div>
         </header>
 
-        <main id="cronograma-forca">
-            </main>
+        <!-- MAIN -->
+        <main class="main">
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab-btn ativo" data-tab="musculacao">💪 Força</button>
+                <button class="tab-btn" data-tab="calistenia">🤸 Domínio</button>
+                <button class="tab-btn" data-tab="diario">📖 Diário</button>
+            </div>
 
-        <button id="btn-salvar-forca">Gravar no Oráculo</button>
+            <!-- TAB: MUSCULAÇÃO -->
+            <section id="musculacao" class="tab-content ativo">
+                <h2>Caminho da Força</h2>
+                
+                <div class="card">
+                    <h3>Cronograma</h3>
+                    <div id="cronograma-musc" class="cronograma"></div>
+                </div>
+
+                <div class="card">
+                    <h3>Novo Exercício</h3>
+                    <div class="form">
+                        <input type="text" id="nome-ex" placeholder="Nome" class="input">
+                        <select id="grupo-ex" class="input">
+                            <option value="">Grupo</option>
+                            <option value="peito">💓 Peito</option>
+                            <option value="costas">🏔️ Costas</option>
+                            <option value="ombro">🪨 Ombro</option>
+                            <option value="perna">🦵 Perna</option>
+                            <option value="bracos">💪 Braços</option>
+                        </select>
+                        <div class="form-row">
+                            <input type="number" id="series-ex" placeholder="Séries" class="input input-small">
+                            <input type="number" id="reps-ex" placeholder="Reps" class="input input-small">
+                            <input type="number" id="peso-ex" placeholder="Peso (kg)" class="input input-small">
+                        </div>
+                        <button id="btn-add-ex" class="btn">Adicionar</button>
+                    </div>
+                </div>
+
+                <div id="lista-ex" class="lista"></div>
+            </section>
+
+            <!-- TAB: CALISTENIA -->
+            <section id="calistenia" class="tab-content">
+                <h2>Caminho do Domínio</h2>
+                
+                <div class="card">
+                    <h3>Cronograma</h3>
+                    <div id="cronograma-calis" class="cronograma"></div>
+                </div>
+
+                <div class="card">
+                    <h3>Novo Movimento</h3>
+                    <div class="form">
+                        <input type="text" id="nome-mov" placeholder="Nome" class="input">
+                        <select id="nivel-mov" class="input">
+                            <option value="">Nível</option>
+                            <option value="basico">🌱 Básico</option>
+                            <option value="intermedio">📈 Médio</option>
+                            <option value="avancado">🚀 Avançado</option>
+                        </select>
+                        <div class="form-row">
+                            <input type="number" id="series-mov" placeholder="Séries" class="input input-small">
+                            <input type="number" id="reps-mov" placeholder="Reps" class="input input-small">
+                        </div>
+                        <button id="btn-add-mov" class="btn">Adicionar</button>
+                    </div>
+                </div>
+
+                <div id="lista-mov" class="lista"></div>
+            </section>
+
+            <!-- TAB: DIÁRIO -->
+            <section id="diario" class="tab-content">
+                <h2>Diário de Treino</h2>
+                
+                <div class="card">
+                    <h3>Registrar Treino</h3>
+                    <div class="form">
+                        <input type="date" id="data-treino" class="input">
+                        <select id="tipo-treino" class="input">
+                            <option value="">Tipo</option>
+                            <option value="forca">💪 Força</option>
+                            <option value="dominio">🤸 Domínio</option>
+                            <option value="misto">⚡ Misto</option>
+                            <option value="descanso">😴 Descanso</option>
+                        </select>
+                        <input type="number" id="duracao-treino" placeholder="Duração (min)" class="input">
+                        <label>Intensidade: <span id="valor-rpe">5</span>/10</label>
+                        <input type="range" id="rpe-treino" min="1" max="10" value="5" class="slider">
+                        <textarea id="notas-treino" placeholder="Notas..." class="input" style="min-height: 60px;"></textarea>
+                        <button id="btn-salvar-treino" class="btn">Salvar</button>
+                    </div>
+                </div>
+
+                <div id="historico" class="lista"></div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <button id="btn-salvar" class="btn btn-primary">💾 Salvar</button>
+            <button id="btn-exportar" class="btn">📊 Exportar</button>
+        </footer>
     </div>
 
     <script src="forca.js"></script>
