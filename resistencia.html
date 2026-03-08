@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senda do Herói - Resistência</title>
+    <title>Câmara de Resistência</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resistencia.css">
 </head>
 <body class="modo-calor" id="clima-body">
-
+    <!-- EFEITOS AMBIENTAIS -->
     <div id="particulas-container"></div>
     <div id="neblina"></div>
     <div id="camada-efeito"></div>
 
+    <!-- CANVAS PRINCIPAL -->
     <div class="canvas" id="painel-principal">
         <header>
-            <h1 id="titulo-reino">🔥 Forja de Hefesto</h1>
+            <h1 id="titulo-reino">🔥 Câmara de Resistência</h1>
             <div class="stats-hero">
-                <span>Nível de Adaptação: <strong id="lvl-display">1</strong></span>
+                <span>Nível: <strong id="lvl-display">1</strong></span>
                 <div class="barra-fundo">
                     <div id="barra-xp"></div>
                 </div>
@@ -26,9 +30,78 @@
             <button id="btn-alternar">Inverter Elemento 🔄</button>
         </header>
 
-        <div id="lista-missoes">
-            </div>
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn ativo" data-tab="sessoes">📋 Sessões</button>
+            <button class="tab-btn" data-tab="treinos">🏃 Treinos</button>
+            <button class="tab-btn" data-tab="historico">📊 Histórico</button>
+        </div>
+
+        <!-- CONTEÚDO -->
+        <div class="conteudo-tabs">
+            <!-- SESSÕES -->
+            <section id="sessoes" class="tab-content ativo">
+                <div class="form">
+                    <label>Tipo de Exposição</label>
+                    <select id="tipo-sessao" class="input-form">
+                        <option value="">Selecione</option>
+                        <option value="banho">Banho</option>
+                        <option value="corrida">Corrida</option>
+                        <option value="imersao">Imersão</option>
+                        <option value="sauna">Sauna</option>
+                    </select>
+
+                    <label>Duração (minutos)</label>
+                    <input type="number" id="duracao-sessao" placeholder="Ex: 5" class="input-form">
+
+                    <label>Intensidade (1-10)</label>
+                    <div class="slider-container">
+                        <input type="range" id="intensidade-sessao" min="1" max="10" value="5" class="slider">
+                        <span id="valor-intensidade">5</span>
+                    </div>
+
+                    <label>Notas</label>
+                    <textarea id="notas-sessao" placeholder="Como se sentiu..." class="input-form" style="min-height: 60px;"></textarea>
+
+                    <button id="btn-salvar-sessao" class="btn-save">Registrar Sessão</button>
+                </div>
+            </section>
+
+            <!-- TREINOS -->
+            <section id="treinos" class="tab-content">
+                <div class="form">
+                    <label>Nome do Treino</label>
+                    <input type="text" id="nome-treino" placeholder="Ex: Banhos Gelados" class="input-form">
+
+                    <label>Tipo</label>
+                    <select id="tipo-treino" class="input-form">
+                        <option value="">Selecione</option>
+                        <option value="adaptacao">Adaptação Gradual</option>
+                        <option value="choque">Choque Térmico</option>
+                        <option value="respiracao">Respiração</option>
+                    </select>
+
+                    <label>Frequência Semanal (1-7)</label>
+                    <input type="number" id="freq-treino" min="1" max="7" placeholder="1-7" class="input-form">
+
+                    <button id="btn-criar-treino" class="btn-save">➕ Criar Treino</button>
+                </div>
+
+                <div id="lista-treinos" class="lista"></div>
+            </section>
+
+            <!-- HISTÓRICO -->
+            <section id="historico" class="tab-content">
+                <div id="lista-historico" class="lista"></div>
+            </section>
+        </div>
     </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <button id="btn-salvar" class="btn-footer">💾 Salvar</button>
+        <button id="btn-exportar" class="btn-footer">📊 Exportar</button>
+    </footer>
 
     <script src="resistencia.js"></script>
 </body>
