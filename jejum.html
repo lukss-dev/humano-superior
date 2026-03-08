@@ -1,75 +1,109 @@
 <!DOCTYPE html>
-<html lang="pt">
-
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Jejum</title>
-<link rel="stylesheet" href="jejum.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Câmara de Jejum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="jejum.css">
 </head>
+<body class="modo-jejum" id="jejum-body">
+    <!-- EFEITOS AMBIENTAIS -->
+    <div id="particulas-container"></div>
+    <div id="camada-efeito"></div>
 
-<body>
+    <!-- CANVAS PRINCIPAL -->
+    <div class="canvas" id="painel-principal">
+        <header>
+            <h1 id="titulo-jejum">⏱️ Câmara de Jejum</h1>
+            <div class="stats-hero">
+                <span>Nível: <strong id="lvl-display">1</strong></span>
+                <div class="barra-fundo">
+                    <div id="barra-xp"></div>
+                </div>
+                <small id="xp-texto">0 / 100 XP</small>
+            </div>
+        </header>
 
-<div class="container">
+        <!-- CRONÔMETRO -->
+        <div class="cronometro-container">
+            <div class="cronometro">
+                <div class="tempo-display" id="tempo-display">00:00:00</div>
+                <p class="tempo-label" id="tempo-label">Jejum Ativo</p>
+            </div>
+        </div>
 
-<h1>Jejum</h1>
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn ativo" data-tab="ativo">🕐 Ativo</button>
+            <button class="tab-btn" data-tab="planejado">📋 Planejado</button>
+            <button class="tab-btn" data-tab="historico">📊 Histórico</button>
+        </div>
 
-<div class="card">
+        <!-- CONTEÚDO -->
+        <div class="conteudo-tabs">
+            <!-- JEJUM ATIVO -->
+            <section id="ativo" class="tab-content ativo">
+                <div class="painel-jejum">
+                    <div class="info-jejum">
+                        <p><strong>Tipo:</strong> <span id="tipo-ativo">Nenhum</span></p>
+                        <p><strong>Meta:</strong> <span id="meta-ativa">0h</span></p>
+                        <p><strong>Progresso:</strong> <span id="progresso-ativo">0%</span></p>
+                    </div>
 
-<h2>Configurar Jejum</h2>
+                    <div class="acoes-jejum">
+                        <button id="btn-iniciar-jejum" class="btn-acao btn-start">▶️ Iniciar Jejum</button>
+                        <button id="btn-parar-jejum" class="btn-acao btn-stop" style="display: none;">⏹️ Parar Jejum</button>
+                        <button id="btn-completar-jejum" class="btn-acao btn-complete" style="display: none;">✅ Completar</button>
+                    </div>
+                </div>
+            </section>
 
-<label>Hora de início</label>
-<input type="time" id="horaInicio">
+            <!-- JEJUM PLANEJADO -->
+            <section id="planejado" class="tab-content">
+                <div class="form">
+                    <label>Nome do Jejum</label>
+                    <input type="text" id="nome-jejum" placeholder="Ex: Jejum Intermitente 16/8" class="input-form">
 
-<label>Duração (horas)</label>
-<input type="number" id="duracao">
+                    <label>Duração (horas)</label>
+                    <input type="number" id="duracao-jejum" placeholder="Ex: 16" min="1" max="72" class="input-form">
 
-<div class="botoes">
+                    <label>Tipo</label>
+                    <select id="tipo-jejum" class="input-form">
+                        <option value="">Selecione</option>
+                        <option value="intermitente">Jejum Intermitente</option>
+                        <option value="estendido">Jejum Estendido</option>
+                        <option value="agua">Jejum de Água</option>
+                        <option value="seco">Jejum Seco</option>
+                    </select>
 
-<button onclick="iniciarJejum()">Iniciar Jejum</button>
-<button onclick="pararCronometro()">Parar Cronômetro</button>
-<button onclick="pararJejum()">Encerrar Jejum</button>
+                    <label>Frequência Semanal (1-7)</label>
+                    <input type="number" id="freq-jejum" min="1" max="7" placeholder="1-7" class="input-form">
 
-</div>
+                    <label>Notas</label>
+                    <textarea id="notas-jejum" placeholder="Objetivos, observações..." class="input-form" style="min-height: 60px;"></textarea>
 
-<p id="fimJejum"></p>
+                    <button id="btn-criar-jejum" class="btn-save">➕ Criar Jejum</button>
+                </div>
 
-</div>
+                <div id="lista-jejuns" class="lista"></div>
+            </section>
 
-<div class="card">
+            <!-- HISTÓRICO -->
+            <section id="historico" class="tab-content">
+                <div id="lista-historico" class="lista"></div>
+            </section>
+        </div>
+    </div>
 
-<h2>Tempo Restante</h2>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <button id="btn-salvar" class="btn-footer">💾 Salvar</button>
+        <button id="btn-exportar" class="btn-footer">📊 Exportar</button>
+    </footer>
 
-<div class="cronometro" id="tempoRestante">
-00:00:00
-</div>
-
-<div class="barra">
-<div id="progresso"></div>
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Experiência</h2>
-
-<p class="xp">XP: <span id="xp">0</span></p>
-
-<h2>Conquistas</h2>
-
-<ul id="conquistas"></ul>
-
-<button class="historicoBtn" onclick="mostrarHistorico()">
-Ver Evolução
-</button>
-
-<div id="historico"></div>
-
-</div>
-
-</div>
-
-<script src="jejum.js"></script>
-
+    <script src="jejum.js"></script>
 </body>
 </html>
