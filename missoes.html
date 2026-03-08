@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missões Diárias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="missoes.css">
+</head>
+<body class="modo-missoes" id="missoes-body">
+    <!-- EFEITOS AMBIENTAIS -->
+    <div id="particulas-container"></div>
+    <div id="camada-efeito"></div>
+
+    <!-- CANVAS PRINCIPAL -->
+    <div class="canvas" id="painel-principal">
+        <header>
+            <h1 id="titulo-missoes">⚔️ Missões Diárias</h1>
+            <div class="stats-hero">
+                <span>Nível: <strong id="lvl-display">1</strong></span>
+                <div class="barra-fundo">
+                    <div id="barra-xp"></div>
+                </div>
+                <small id="xp-texto">0 / 100 XP</small>
+            </div>
+            
+            <div class="info-missoes">
+                <span>Missões Completas: <strong id="completas-hoje">0/0</strong></span>
+                <span>Série: <strong id="serie-dias">0 dias</strong></span>
+            </div>
+        </header>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn ativo" data-tab="diarias">📋 Diárias</button>
+            <button class="tab-btn" data-tab="criar">➕ Criar</button>
+            <button class="tab-btn" data-tab="historico">📊 Histórico</button>
+        </div>
+
+        <!-- CONTEÚDO -->
+        <div class="conteudo-tabs">
+            <!-- MISSÕES DIÁRIAS -->
+            <section id="diarias" class="tab-content ativo">
+                <div class="filtro-missoes">
+                    <button class="filtro-btn ativo" data-filtro="todas">Todas</button>
+                    <button class="filtro-btn" data-filtro="ativas">Ativas</button>
+                    <button class="filtro-btn" data-filtro="completas">Completas</button>
+                </div>
+
+                <div id="lista-missoes" class="lista-missoes"></div>
+            </section>
+
+            <!-- CRIAR MISSÃO -->
+            <section id="criar" class="tab-content">
+                <div class="form">
+                    <label>Nome da Missão</label>
+                    <input type="text" id="nome-missao" placeholder="Ex: Treino de Força" class="input-form">
+
+                    <label>Descrição</label>
+                    <textarea id="desc-missao" placeholder="Detalhes da missão..." class="input-form" style="min-height: 60px;"></textarea>
+
+                    <label>Recompensa XP</label>
+                    <input type="number" id="xp-missao" placeholder="Ex: 50" min="10" step="10" class="input-form">
+
+                    <label>Dificuldade</label>
+                    <select id="dif-missao" class="input-form">
+                        <option value="">Selecione</option>
+                        <option value="facil">🌱 Fácil (10 XP)</option>
+                        <option value="normal">📈 Normal (25 XP)</option>
+                        <option value="dificil">🔥 Difícil (50 XP)</option>
+                        <option value="impossivel">👑 Impossível (100 XP)</option>
+                    </select>
+
+                    <label>Tipo</label>
+                    <select id="tipo-missao" class="input-form">
+                        <option value="">Selecione</option>
+                        <option value="forca">💪 Força</option>
+                        <option value="resistencia">❄️ Resistência</option>
+                        <option value="jejum">⏱️ Jejum</option>
+                        <option value="cardio">🏃 Cardio</option>
+                        <option value="geral">⭐ Geral</option>
+                    </select>
+
+                    <label>Frequência</label>
+                    <select id="freq-missao" class="input-form">
+                        <option value="diaria">Diária</option>
+                        <option value="semanal">Semanal</option>
+                        <option value="mensal">Mensal</option>
+                    </select>
+
+                    <button id="btn-criar-missao" class="btn-save">✨ Criar Missão</button>
+                </div>
+
+                <div class="templates">
+                    <h3>📋 Modelos Rápidos</h3>
+                    <div class="template-grid">
+                        <button class="template-btn" onclick="usarTemplate('forca')">💪 Treino de Força</button>
+                        <button class="template-btn" onclick="usarTemplate('cardio')">🏃 Cardio</button>
+                        <button class="template-btn" onclick="usarTemplate('jejum')">⏱️ Jejum</button>
+                        <button class="template-btn" onclick="usarTemplate('leitura')">📚 Leitura</button>
+                        <button class="template-btn" onclick="usarTemplate('meditacao')">🧘 Meditação</button>
+                        <button class="template-btn" onclick="usarTemplate('agua')">💧 Beber Água</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HISTÓRICO -->
+            <section id="historico" class="tab-content">
+                <div id="lista-historico" class="lista-missoes"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <button id="btn-salvar" class="btn-footer">💾 Salvar</button>
+        <button id="btn-exportar" class="btn-footer">📊 Exportar</button>
+    </footer>
+
+    <script src="missoes.js"></script>
+</body>
+</html>

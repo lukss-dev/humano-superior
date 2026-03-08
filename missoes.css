@@ -1,0 +1,593 @@
+:root {
+    --ouro: #d4af37;
+    --verde-sucesso: #27ae60;
+    --azul-missao: #3498db;
+    --vermelho-erro: #e74c3c;
+    --fundo: #0a0a0a;
+    --card-bg: #1a1a1a;
+    --texto: #e0e0e0;
+    --texto-sec: #a0a0a0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Crimson Text', serif;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--texto);
+    flex-direction: column;
+    gap: 15px;
+    background: linear-gradient(135deg, #0a0f2c 0%, #0a0a0a 50%, #1a0a2e 100%);
+    transition: all 1.5s ease;
+}
+
+/* ========================================
+   ANIMAÇÕES
+   ======================================== */
+
+@keyframes conquista {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes brilhoSucesso {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(39, 174, 96, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(39, 174, 96, 0.6);
+    }
+}
+
+@keyframes flutuarMissao {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulsarMissao {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes particuasSucesso {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) scale(0);
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   CANVAS
+   ======================================== */
+
+.canvas {
+    width: 90%;
+    max-width: 500px;
+    background: rgba(15, 15, 15, 0.95);
+    border: 2px solid var(--ouro);
+    border-radius: 15px;
+    padding: 25px;
+    z-index: 10;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+header {
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--ouro);
+    margin-bottom: 15px;
+}
+
+#titulo-missoes {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6em;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: var(--ouro);
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.stats-hero {
+    margin-bottom: 12px;
+    font-size: 0.9em;
+    color: var(--texto-sec);
+}
+
+.stats-hero strong {
+    color: var(--ouro);
+}
+
+.barra-fundo {
+    background: #222;
+    height: 8px;
+    border-radius: 4px;
+    margin: 6px 0;
+    border: 1px solid #333;
+    overflow: hidden;
+}
+
+#barra-xp {
+    height: 100%;
+    transition: width 0.5s ease-out;
+    background: linear-gradient(90deg, var(--verde-sucesso), var(--ouro));
+}
+
+.info-missoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: var(--texto-sec);
+}
+
+.info-missoes strong {
+    color: var(--verde-sucesso);
+}
+
+/* ========================================
+   FILTROS
+   ======================================== */
+
+.filtro-missoes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.filtro-btn {
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: var(--texto-sec);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.filtro-btn:hover {
+    border-color: var(--ouro);
+    color: var(--ouro);
+}
+
+.filtro-btn.ativo {
+    background: var(--ouro);
+    border-color: var(--ouro);
+    color: #000;
+}
+
+/* ========================================
+   TABS
+   ======================================== */
+
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.tab-btn {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: var(--texto-sec);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.tab-btn:hover {
+    border-color: var(--ouro);
+    color: var(--ouro);
+}
+
+.tab-btn.ativo {
+    background: var(--ouro);
+    border-color: var(--ouro);
+    color: #000;
+}
+
+/* ========================================
+   CONTEÚDO TABS
+   ======================================== */
+
+.conteudo-tabs {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.conteudo-tabs::-webkit-scrollbar {
+    width: 6px;
+}
+
+.conteudo-tabs::-webkit-scrollbar-track {
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.conteudo-tabs::-webkit-scrollbar-thumb {
+    background: var(--ouro);
+    border-radius: 3px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.ativo {
+    display: block;
+}
+
+/* ========================================
+   MISSÕES
+   ======================================== */
+
+.lista-missoes {
+    display: grid;
+    gap: 10px;
+}
+
+.missao-card {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(255, 255, 255, 0.02));
+    border: 1px solid var(--ouro);
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: flutuarMissao 3s ease-in-out infinite;
+}
+
+.missao-card:hover {
+    background: rgba(212, 175, 55, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+}
+
+.missao-card.completa {
+    opacity: 0.7;
+    border-color: var(--verde-sucesso);
+    background: rgba(39, 174, 96, 0.1);
+}
+
+.missao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.missao-titulo {
+    font-weight: 700;
+    color: var(--ouro);
+    font-size: 0.95em;
+}
+
+.missao-xp {
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--ouro);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.missao-desc {
+    font-size: 0.8em;
+    color: var(--texto-sec);
+    margin-bottom: 8px;
+}
+
+.missao-info {
+    display: flex;
+    gap: 12px;
+    font-size: 0.75em;
+    color: var(--texto-sec);
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.info-tag {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 3px 8px;
+    border-radius: 3px;
+}
+
+.missao-acoes {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.barra-progresso {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.barra-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--verde-sucesso), var(--ouro));
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.btn-completar {
+    padding: 6px 12px;
+    background: var(--verde-sucesso);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.75em;
+    transition: all 0.2s ease;
+}
+
+.btn-completar:hover {
+    background: #1e8449;
+    box-shadow: 0 0 12px rgba(39, 174, 96, 0.4);
+    animation: brilhoSucesso 0.6s ease;
+}
+
+.btn-completar:disabled {
+    background: var(--texto-sec);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* ========================================
+   FORMULÁRIOS
+   ======================================== */
+
+.form {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+label {
+    color: var(--texto-sec);
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.input-form {
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: var(--texto);
+    font-size: 0.9em;
+    font-family: 'Crimson Text', serif;
+    transition: all 0.2s ease;
+}
+
+.input-form:focus {
+    outline: none;
+    border-color: var(--ouro);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* ========================================
+   TEMPLATES
+   ======================================== */
+
+.templates {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+}
+
+.templates h3 {
+    color: var(--ouro);
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    font-family: 'Cinzel', serif;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.template-btn {
+    padding: 8px 12px;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--ouro);
+    border-radius: 4px;
+    color: var(--ouro);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8em;
+    transition: all 0.2s ease;
+    font-family: 'Crimson Text', serif;
+}
+
+.template-btn:hover {
+    background: var(--ouro);
+    color: #000;
+}
+
+/* ========================================
+   BOTÕES
+   ======================================== */
+
+.btn-save {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--ouro);
+    border-radius: 4px;
+    color: var(--ouro);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85em;
+}
+
+.btn-save:hover {
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* ========================================
+   PARTÍCULAS
+   ======================================== */
+
+#particulas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particula {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(39, 174, 96, 0.8), transparent);
+    box-shadow: 0 0 10px rgba(39, 174, 96, 0.6);
+    animation: particuasSucesso 1s ease-out forwards;
+}
+
+/* ========================================
+   EFEITOS TRANSIÇÃO
+   ======================================== */
+
+#camada-efeito {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    z-index: 100;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+body.trocando #camada-efeito {
+    opacity: 0.8;
+}
+
+body.trocando #painel-principal {
+    filter: blur(15px);
+    transform: scale(0.95);
+}
+
+#painel-principal {
+    transition: filter 0.8s ease, transform 0.8s ease;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer {
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.btn-footer {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--ouro);
+    border-radius: 4px;
+    color: var(--ouro);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: 'Cinzel', serif;
+}
+
+.btn-footer:hover {
+    background: var(--ouro);
+    color: #000;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+/* ========================================
+   RESPONSIVO
+   ======================================== */
+
+@media (max-width: 600px) {
+    .canvas {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    #titulo-missoes {
+        font-size: 1.3em;
+    }
+
+    .tabs {
+        grid-template-columns: 1fr;
+    }
+
+    .template-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-missoes {
+        grid-template-columns: 1fr;
+    }
+}
